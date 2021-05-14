@@ -27,15 +27,7 @@ public class HomeController {
 
 	@Autowired
 	private UserRepository userRepository;
-	@GetMapping("/test")
-	@ResponseBody
-	public String test() {
-		User user=new User();
-		user.setName("aelis");
-		user.setEmail("aspatel@gmail.com");
-		userRepository.save(user);
-		return "working";
-	}
+	
 	@RequestMapping("/")
 	public String home(Model m) {
 	m.addAttribute("title","home-smart contact manager");
