@@ -11,11 +11,12 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
 		integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
 		crossorigin="anonymous" />
-    <title th:text="${title}">Base html</title>
+    <title th:text="${title}">Normal Base html</title>
     
       <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
     
   </head>
   <body>
@@ -28,18 +29,16 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto text-uppercase">
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link" th:href="@{/}" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       
-    
-      
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="#" tabindex="-1" aria-disabled="true"><span th:text="${user.name}"></span></a>
       </li>
       
        <li class="nav-item">
-        <a class="nav-link" th:href="@{/logout}" href="#" tabindex="-1" aria-disabled="true">Logout</a>
+        <a class="nav-link" th:href="@{/logout}" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-sign-out-alt"></i> Logout</a>
       </li>
     </ul>
    
@@ -53,7 +52,6 @@
   	<a id="add-link" th:href="@{/user/addContact}" class="item"><i class="fas fa-pencil-alt"></i> Add Contact</a>
   	<a id="profile-link" th:href="@{/user/profile}" class="item"><i class="fas fa-user-circle"></i> Your Profile</a>
   	<a id="settings-link" th:href="@{/user/settings}" class="item"><i class="fas fa-cogs"></i> Setting</a>
-  	<a th:href="@{/logout}" class="item"><i class="fas fa-sign-out-alt"></i> Logout</a>
   	<div class="divider"></div>
   </div>
   
@@ -63,7 +61,7 @@
   	<!-- message box -->
   	<div th:if="${session.message}" class="container">
   		<div th:classappend="${'alert-'+session.message.type}" class="alert text-center" role="alert">
-  			<spant th:text=${session.message.content}></span>
+  			<span th:text=${session.message.content}></span>
   		</div>
   		<th:block th:text="${#session.removeAttribute('message')}"></th:block>
   	</div>
