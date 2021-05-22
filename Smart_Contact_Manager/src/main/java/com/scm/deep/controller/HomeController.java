@@ -63,10 +63,11 @@ public class HomeController {
 			}
 		
 			user.setRole("ROLE_USER");
+			user.setImageUrl("contact_profile.png");
 			user.setEnabled(true);
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			System.out.print(agreement);
-			System.out.print(user);
+//			System.out.print(agreement);
+//			System.out.print(user);
 			User result = this.userRepository.save(user);
 			model.addAttribute("User",new User());
 			session.setAttribute("message", new MessageCenter("Successfully Registered!!","alert-success"));

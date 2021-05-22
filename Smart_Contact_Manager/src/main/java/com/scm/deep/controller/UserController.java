@@ -51,7 +51,7 @@ public class UserController {
 		String userName = principal.getName();
 		System.out.println("username:" + userName);
 		User user = userRepository.getUserByUserName(userName);
-		System.out.println("user:" + user);
+//		System.out.println("user:" + user);
 		model.addAttribute("user", user);
 	}
 
@@ -133,7 +133,7 @@ public class UserController {
 	// showing particular contact details
 	@RequestMapping("/{cId}/contact")
 	public String showContactDetail(@PathVariable("cId") Integer cId, Model model, Principal principal) {
-		System.out.println("CID" + cId);
+//		System.out.println("CID" + cId);
 
 		Optional<Contact> contactOptional = this.contactRepository.findById(cId);
 		Contact contact = contactOptional.get();
@@ -153,7 +153,7 @@ public class UserController {
 	public String deleteContact(@PathVariable("cid") Integer cId, Model model, Principal principal,
 			HttpSession session) {
 		Contact contact = this.contactRepository.findById(cId).get();
-		System.out.println("Contact " + contact.getcId());
+//		System.out.println("Contact " + contact.getcId());
 		// contact.setUser(null);
 		// String userName = principal.getName();
 		// User user = this.userRepository.getUserByUserName(userName);

@@ -21,7 +21,7 @@ const search=()=>{
 	else{
 		console.log(query);
 		//sending request to server
-		let url=`http://localhost:8383/search/${query}`;
+		let url=`http://localhost:8181/search/${query}`;
 		fetch(url)
 			.then((response)=>{
 			return response.json();
@@ -32,11 +32,11 @@ const search=()=>{
 			let text=`<div class='list-group'>`;
 			data.forEach((contact)=>{
 			text +=`<a href='/user/${contact.cId}/contact' class='list-group-item list-group-item-action'> ${contact.name}</a>`
-			})
+			});
 			text +=`</div>`;
 			$(".search-result").html(text);
 			$(".search-result").show();
 		});
-		$(".search-result").show();
+		
 	}
 };
