@@ -2,6 +2,11 @@ body{
 	background: #e2e2e2!important;
 	color:white;
 }
+p{
+	color: black;
+	text-align: center;
+	margin-top: 10px;
+}
 .bg-primary{
 	background: #009688!important;
 }
@@ -24,7 +29,7 @@ body{
   max-width: 600px;
   height: 420px;
   border: 1px solid #9C9C9C;
-  background-color: #EAEAEA;
+  background-color: white;
 }
 #login .container #login-row #login-column #login-box #login-form {
   padding: 20px;
