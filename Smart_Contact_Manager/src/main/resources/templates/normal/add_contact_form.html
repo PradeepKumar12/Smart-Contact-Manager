@@ -22,8 +22,14 @@
 										<i class="fa fa-plus"></i>
 									</div>
 								</div>
-								<input  type="text" name="name" id="firstName" placeholder="Enter Name here" class="form-control" required/>
+								<input type="text" class="form-control" name="name"
+									id="firstName" placeholder="Enter Name here"
+									th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
+									th:value="${contact.name}" />
+								<div th:each="e : ${#fields.errors('name')}" th:text="${e}"
+									id="validationServer03Feedback" class="invalid-feedback"></div>
 							</div>
+							
 							<!-- second name -->
 							<div class="input-group mt-3">
 								<div class="input-group-prepend">
@@ -31,7 +37,9 @@
 										<i class="fas fa-user-alt"></i>
 									</div>
 								</div>
-								<input  type="text" name="secondName" id="secondName" placeholder="Enter Nick Name here" class="form-control" required/>
+								<input type="text" class="form-control" name="secondName"
+									id="secondName" placeholder="Enter Nick Name here"
+									th:value="${contact.secondName}" />
 							</div>
 							
 							<!-- phone  -->
@@ -41,7 +49,13 @@
 										<i class="fa fa-phone"></i>
 									</div>
 								</div>
-								<input  min="10" type="number" name="phone" id="phone" placeholder="Enter Phone Number here" class="form-control" required/>
+								
+								<input type="number" class="form-control" name="phone"
+									id="phone" placeholder="Enter Phone Number here"
+									th:classappend="${#fields.hasErrors('phone') ? 'is-invalid' : ''}"
+									th:value="${contact.phone}" />
+								<div th:each="e : ${#fields.errors('phone')}" th:text="${e}"
+									id="validationServer03Feedback" class="invalid-feedback"></div>
 							</div>
 							
 					<!-- email -->
@@ -51,8 +65,13 @@
 											@
 										</div>
 									</div>
-									<input  type="email" name="email" id="email" placeholder="Enter Email Id here" class="form-control" required/>
-								</div>
+									<input type="email" class="form-control" name="email" id="email"
+									placeholder="Enter email here"
+									th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"
+									th:value="${contact.email}" />
+								<div th:each="e : ${#fields.errors('email')}" th:text="${e}"
+									id="validationServer03Feedback" class="invalid-feedback"></div>
+							</div>
 								
 								<!-- work field -->
 								<div class="input-group mt-3">
@@ -61,7 +80,13 @@
 											<i class="fa fa-briefcase"></i>
 										</div>
 									</div>
-									<input  type="text" name="work" id="work" placeholder="Enter your work here" class="form-control"/>
+									<input type="text" class="form-control" name="work" id="work"
+										placeholder="Enter your work here"
+										th:classappend="${#fields.hasErrors('work') ? 'is-invalid' : ''}"
+										th:value="${contact.work}" />
+									<div th:each="e : ${#fields.errors('work')}" th:text="${e}"
+										id="validationServer03Feedback" class="invalid-feedback"></div>
+									
 								</div>
 								
 								<!-- discription -->

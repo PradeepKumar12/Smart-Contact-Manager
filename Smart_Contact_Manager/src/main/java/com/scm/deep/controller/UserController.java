@@ -1,5 +1,6 @@
 package com.scm.deep.controller;
 
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,6 +10,7 @@ import java.security.Principal;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -18,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,9 +52,10 @@ public class UserController {
 	@ModelAttribute
 	public void addCommonData(Model model, Principal principal) {
 		String userName = principal.getName();
-		System.out.println("username:" + userName);
+//		System.out.println("username:" + userName);
+		// get user using userName(email)
 		User user = userRepository.getUserByUserName(userName);
-//		System.out.println("user:" + user);
+		System.out.println("user:" + user);
 		model.addAttribute("user", user);
 	}
 
@@ -72,10 +76,16 @@ public class UserController {
 
 	// processing add contact form
 	@PostMapping("/process-contact")
-	public String processContact(@ModelAttribute Contact contact, @RequestParam("profileImage") MultipartFile file,
-			Principal principal, HttpSession session) {
+	public String processContact(@Valid @ModelAttribute Contact contact,BindingResult br, @RequestParam("profileImage") MultipartFile file,
+			Principal principal, HttpSession session,Model model) {
+		System.out.println("Contact :- "+contact);
 
 		try {
+				if (br.hasErrors()) {
+				System.out.println("Error" + br.toString());
+				model.addAttribute("contact", contact);
+				return "normal/add_contact_form";
+			}
 			String name = principal.getName();
 			User user = this.userRepository.getUserByUserName(name);
 
@@ -98,32 +108,39 @@ public class UserController {
 			user.getContacts().add(contact);
 			this.userRepository.save(user);
 
-			System.out.println("DATA:" + contact);
+//			System.out.println("DATA:" + contact);
 			System.out.println("Added to database");
 			// message success......
 			session.setAttribute("message",
 					new MessageCenter("Your Contact is Successfully added!!! Add More...", "success"));
+			return "normal/add_contact_form";
 
 		} catch (Exception e) {
 			System.out.println("ERROR" + e.getMessage());
 			e.printStackTrace();
 			// error message
 			session.setAttribute("message", new MessageCenter("Something went wrong !! Try Again....", "danger"));
-
+			return "normal/add_contact_form";
 		}
-		return "normal/add_contact_form";
+		
 	}
 
+	
 	// show contacts handler
 	// per page=5[n]
 	// current page=0[page]
 	@GetMapping("/show-contacts/{page}")
-	public String showContacts(@PathVariable("page") Integer page, Model m, Principal principal) {
+	public String showContacts(@PathVariable("page") Integer currentPage, Model m, Principal principal) {
 		m.addAttribute("title", "Show User Contact");
 		String userName = principal.getName();
 		User user = this.userRepository.getUserByUserName(userName);
+		int page=currentPage-1;
 		Pageable pageable = PageRequest.of(page, 8);
 		Page<Contact> contacts = this.contactRepository.findcontactByUser(user.getId(), pageable);
+		int count = user.getContacts().size();
+//		System.out.println("count ->"+user.getContacts().size());
+		System.out.println("Contacts: "+contacts);
+		m.addAttribute("count", count);
 		m.addAttribute("contacts", contacts);
 		m.addAttribute("currentPage", page);
 		m.addAttribute("totalPages", contacts.getTotalPages());
@@ -174,7 +191,7 @@ public class UserController {
 		System.out.println("deleted");
 		session.setAttribute("message", new MessageCenter("Contact deleted successfully...", "success"));
 
-		return "redirect:/user/show-contacts/0";
+		return "redirect:/user/show-contacts/1";
 
 	}
 

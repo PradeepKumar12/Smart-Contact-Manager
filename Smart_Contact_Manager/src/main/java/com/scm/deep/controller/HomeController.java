@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.scm.deep.helper.MessageCenter;
 import com.scm.deep.model.User;
@@ -30,18 +29,18 @@ public class HomeController {
 	
 	@RequestMapping("/")
 	public String home(Model m) {
-	m.addAttribute("title","home-smart contact manager");
+	m.addAttribute("title","Home - Smart Contact Manager");
 		return "home";
 	}
 	@RequestMapping("/about")
 	public String about(Model m) {
-	m.addAttribute("title","home-smart contact manager");
+	m.addAttribute("title","About - Smart Contact Manager");
 		return "about";
 	}
 	
 	@RequestMapping("/signup")
 	public String signup(Model m) {
-	m.addAttribute("title","register-smart contact manager");
+	m.addAttribute("title","Register - Smart Contact Manager");
 	m.addAttribute("user", new User());
 		return "signup";
 	}
@@ -85,7 +84,7 @@ public class HomeController {
 	@GetMapping("/signin")
 	public String customLogin(Model model)
 	{
-		model.addAttribute("title", "login page");
+		model.addAttribute("title", "Login-Smart Contact Manager");
 		return "login";
 	}
 	

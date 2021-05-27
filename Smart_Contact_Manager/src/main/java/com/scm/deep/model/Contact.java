@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,12 +20,23 @@ public class Contact {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int cId;
+	@NotBlank(message = "Name is requried")
+	@Size(min=2,max = 50 ,message = "min 2 and max 50 letters allowed.")
 	private String name;
 	private String secondName;
+	@NotBlank(message = "Work is requried")
+	@Size(min=2,max = 50 ,message = "min 2 and max 50 letters allowed.")
 	private String work;
+	@Pattern(regexp = "^[a-zA-Z0-9_!#$%&�*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&�*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$"
+			,message = "Email invalid")
 	private String email;
+	@NotBlank(message = "Phone Number is requried")
+	@Size(min=10,max = 10 ,message = "10 Digit allowed.")
 	private String phone;
+	@Column(length = 200)
 	private String image;
+	
+	
 	@Column(length = 5000)
 	private String description;
 	

@@ -27,9 +27,14 @@ public class User {
 	@Size(min = 3,max = 20,message = "Name must be in between 3-20 characters")
 	private String name;
 
+	
+	
+	@Column(unique = true)
 	@Email(regexp ="^([a-zA-Z0-9\\.~]+)@([a-z0-9~]+).([a-z]{2,8})(.[a-z]{2,8})$")
 	private String email;
 	//(regexp ="^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")
+	
+	@NotBlank(message = "Password is requried")
 	private String password;
 	private String role;
 	private boolean enabled;
